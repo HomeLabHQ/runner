@@ -2,10 +2,12 @@
 FROM ubuntu:22.04
 
 # set the github runner version
-ARG RUNNER_VERSION="2.308.0"
+ARG RUNNER_VERSION="2.309.0"
 
 # update the base packages and add a non-sudo user
-RUN apt-get update -y && apt-get upgrade -y && useradd -m docker
+RUN apt-get update -y && apt-get upgrade -y && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd -m docker 
 
 # install python and the packages the your code depends on along with jq so we can parse JSON
 # add additional packages as necessary
@@ -22,9 +24,6 @@ RUN chown -R docker ~docker && /home/docker/actions-runner/bin/installdependenci
 
 # copy over the start.sh script
 COPY start.sh start.sh
-
-# make the script executable
-RUN chmod +x start.sh
 
 # since the config and run script for actions are not allowed to be run by root,
 # set the user to "docker" so all subsequent commands are run as the docker user
