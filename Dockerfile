@@ -5,9 +5,7 @@ FROM ubuntu:22.04
 ARG RUNNER_VERSION="2.309.0"
 
 # update the base packages and add a non-sudo user
-RUN apt-get update -y && apt-get upgrade -y && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && useradd -m docker 
+RUN apt-get update -y && apt-get upgrade -y && useradd -m docker 
 
 # install python and the packages the your code depends on along with jq so we can parse JSON
 # add additional packages as necessary
