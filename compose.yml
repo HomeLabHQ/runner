@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  runner:
+    container_name: github-aciton-runner
+    build:
+      context: ./
+    env_file:
+      - .env
