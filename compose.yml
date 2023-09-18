@@ -7,5 +7,5 @@ services:
     env_file:
       - .env
     volumes:
-      - /var/run/docker.sock:home/docker/.docker/run/docker.sock:ro
+      - /var/run/docker.sock:/home/docker/.docker/run/docker.sock:ro
     network_mode: host
