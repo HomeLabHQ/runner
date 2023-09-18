@@ -22,8 +22,7 @@ RUN echo \
     usermod -aG docker docker 
 
 
-RUN apt-get update -y && apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin &&\
-    /usr/bin/dockerd-rootless-setuptool.sh install
+RUN apt-get update -y && apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # cd into the user directory, download and unzip the github actions runner
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
@@ -39,6 +38,7 @@ COPY start.sh start.sh
 # since the config and run script for actions are not allowed to be run by root,
 # set the user to "docker" so all subsequent commands are run as the docker user
 USER docker
+RUN /usr/bin/dockerd-rootless-setuptool.sh install
 
 # set the entrypoint to the start.sh script
 ENTRYPOINT ["./start.sh"]
