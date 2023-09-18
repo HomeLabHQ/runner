@@ -14,7 +14,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 
 RUN curl -fsSL https://get.docker.com -o get-docker.sh && \
     sh ./get-docker.sh &&\
-    usermod -aG docker $USER
+    apt-get install -y docker-ce-rootless-extras
 
 # cd into the user directory, download and unzip the github actions runner
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
