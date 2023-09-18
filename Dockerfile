@@ -14,7 +14,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 
 RUN curl -fsSL https://get.docker.com -o get-docker.sh && \
     sh ./get-docker.sh && \
-    systemctl enable docker.service
+    systemctl enable docker.service &&\
+    systemctl start docker.service && \
+    gpasswd -a $USER docker
 
 # cd into the user directory, download and unzip the github actions runner
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
