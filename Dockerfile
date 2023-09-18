@@ -14,7 +14,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 
 RUN curl -fsSL https://get.docker.com -o get-docker.sh && \
     sh ./get-docker.sh &&\
-    DEBIAN_FRONTEND=noninteractive systemctl start docker
+    groupadd docker &&\
+    usermod -aG docker $USER
+
 # cd into the user directory, download and unzip the github actions runner
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
     && curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
