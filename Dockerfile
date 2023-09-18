@@ -13,8 +13,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip tzdata ssh
 
 RUN curl -fsSL https://get.docker.com -o get-docker.sh && \
-    sh ./get-docker.sh &&\
-    apt-get install -y docker-ce-rootless-extras
+    sh ./get-docker.sh && \
+    systemctl enable docker.service
 
 # cd into the user directory, download and unzip the github actions runner
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
