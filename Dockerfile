@@ -14,7 +14,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 
 RUN curl -fsSL https://get.docker.com -o get-docker.sh && \
     sh ./get-docker.sh &&\
-    groupadd docker &&\
     usermod -aG docker $USER
 
 # cd into the user directory, download and unzip the github actions runner
