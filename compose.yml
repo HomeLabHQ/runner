@@ -4,6 +4,12 @@ services:
     container_name: github-action-runner
     build:
       context: ./
+    deploy:
+      mode: replicated
+      replicas: 3
+      placement:
+        constraints:
+          - node.role == worker
     env_file:
       - .env
     volumes:
