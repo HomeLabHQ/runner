@@ -40,7 +40,5 @@ COPY start.sh start.sh
 USER docker
 RUN /usr/bin/dockerd-rootless-setuptool.sh install
 
-RUN chown docker /run/docker.sock
-
 # set the entrypoint to the start.sh script
 ENTRYPOINT ["./start.sh"]
