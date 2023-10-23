@@ -11,6 +11,7 @@ services:
           - node.role == worker
     env_file:
       - .env
+    privileged: true
     volumes:
       - /var/run/docker.sock:/home/docker/.docker/run/docker.sock
     network_mode: host
