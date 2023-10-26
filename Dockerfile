@@ -7,7 +7,7 @@ ARG DOCKER_GROUP
 ENV DOCKER_GROUP=$DOCKER_GROUP
 
 # update the base packages and add a non-sudo user
-RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y && apt-get upgrade -y && useradd -m docker
+RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y && apt-get upgrade -y && useradd -mg ${DOCKER_GROUP} docker
 # install python and the packages the your code depends on along with jq so we can parse JSON
 # add additional packages as necessary
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
