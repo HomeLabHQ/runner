@@ -12,3 +12,4 @@ Need 2 env variables:
 ## Notes
 
 - Latest runner [version](https://github.com/actions/runner/releases)
+- To specify docker group on your host provide `DOCKER_GROUP` env variable
