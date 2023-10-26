@@ -3,6 +3,8 @@ services:
   runner:
     build:
       context: ./
+      args:
+        - DOCKER_GROUP
     deploy:
       mode: replicated
       replicas: 3

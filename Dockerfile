@@ -3,6 +3,8 @@ FROM ubuntu:22.04
 
 # set the github runner version
 ARG RUNNER_VERSION="2.309.0"
+ARG DOCKER_GROUP
+ENV DOCKER_GROUP=$DOCKER_GROUP
 
 # update the base packages and add a non-sudo user
 RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y && apt-get upgrade -y && useradd -m docker
