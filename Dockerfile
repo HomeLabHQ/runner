@@ -106,8 +106,8 @@ ARG LIBS="curl\
     time\
     zip\
     ant\
-	openjdk-17-jre-headless"
-
+    nodejs\
+    openjdk-17-jre-headless"
 
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --fix-missing ${LIBS} &&\
