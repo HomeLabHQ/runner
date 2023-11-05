@@ -105,7 +105,7 @@ ARG LIBS="curl\
     telnet\
     time\
     zip\
-    openjdk-11-jdk"
+    openjdk-17-jdk"
 
 
 
