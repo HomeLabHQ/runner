@@ -11,7 +11,7 @@ RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y && apt-get upgrade -
 # install python and the packages the your code depends on along with jq so we can parse JSON
 # add additional packages as necessary
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip tzdata ssh ca-certificates gnupg kmod uidmap &&\
+    curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip tzdata ssh ca-certificates curl gnupg kmod uidmap &&\
     install -m 0755 -d /etc/apt/keyrings && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg |  gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&\
     chmod a+r /etc/apt/keyrings/docker.gpg
