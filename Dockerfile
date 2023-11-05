@@ -75,8 +75,7 @@ ARG LIBS="curl\
 
 
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip tzdata ssh ca-certificates curl gnupg kmod uidmap &&\
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ${LIBS} &&\
     install -m 0755 -d /etc/apt/keyrings && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg |  gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&\
     chmod a+r /etc/apt/keyrings/docker.gpg
