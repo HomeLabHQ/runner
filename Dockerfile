@@ -7,7 +7,7 @@ ARG DOCKER_GROUP
 ENV DOCKER_GROUP=$DOCKER_GROUP
 
 # update the base packages and add a non-sudo user
-RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y --fix-missing && apt-get upgrade -y && useradd -mg ${DOCKER_GROUP} docker -d runner
+RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y --fix-missing && apt-get upgrade -y && useradd -mg ${DOCKER_GROUP} runner
 
 
 ARG LIBS="curl\
@@ -120,7 +120,7 @@ RUN echo \
     "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
     "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
     tee /etc/apt/sources.list.d/docker.list > /dev/null &&\
-    usermod -aG docker docker 
+    usermod -aG runner docker 
 
 
 RUN apt-get update -y &&\
@@ -134,7 +134,7 @@ RUN mkdir work && cd work \
     && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
 
 # install some additional dependencies
-RUN chown -R docker ~docker && /home/runner/work/bin/installdependencies.sh
+RUN chown -R docker ~runner && /home/runner/work/bin/installdependencies.sh
 
 # copy over the start.sh script
 COPY start.sh start.sh
@@ -144,7 +144,7 @@ RUN chmod -R 777 /usr/lib/jvm
 
 # since the config and run script for actions are not allowed to be run by root,
 # set the user to "docker" so all subsequent commands are run as the docker user
-USER docker
+USER runner
 ARG JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
 ENV JAVA_HOME=$JAVA_HOME
 # set the entrypoint to the start.sh script
