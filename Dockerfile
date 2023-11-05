@@ -134,7 +134,7 @@ RUN mkdir work && cd work \
     && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
 
 # install some additional dependencies
-RUN chown -R docker ~runner && /home/runner/work/bin/installdependencies.sh
+RUN chown -R runner ~runner && /home/runner/work/bin/installdependencies.sh
 
 # copy over the start.sh script
 COPY start.sh start.sh
