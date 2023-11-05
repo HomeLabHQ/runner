@@ -16,7 +16,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg |  gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&\
     chmod a+r /etc/apt/keyrings/docker.gpg
 
-RUN curl https://raw.githubusercontent.com/actions/runner-images/main/images/linux/toolsets/toolset-2204.json -O toolset-2204.json
+RUN curl https://raw.githubusercontent.com/actions/runner-images/main/images/linux/toolsets/toolset-2204.json -o toolset-2204.json
 
 ARG APT_PACKAGES=`cat toolset-2204.json | jq -r '.apt | [.vital_packages[], .common_packages[], .cmd_packages[]] | join(" ")'`
 RUN apt-get update -y && apt-get install -y --no-install-recommends ${APT_PACKAGES}
