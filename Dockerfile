@@ -105,7 +105,7 @@ ARG LIBS="curl\
     telnet\
     time\
     zip\
-    openjdk-17-jdk"
+		openjdk-17-jre-headless"
 
 
 
