@@ -110,7 +110,6 @@ ARG LIBS="curl\
     nodejs\
     openjdk-17-jre-headless"
 
-
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --fix-missing ${LIBS} &&\
     install -m 0755 -d /etc/apt/keyrings && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg |  gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&\
@@ -129,12 +128,11 @@ RUN apt-get update -y &&\
 # cd into the user directory, download and unzip the github actions runner
 WORKDIR /home/runner
 
-RUN mkdir work && cd work \
-    && curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
+RUN curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
     && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
 
 # install some additional dependencies
-RUN chown -R runner ~runner && /home/runner/work/bin/installdependencies.sh
+RUN chown -R runner ~runner && /home/runner/bin/installdependencies.sh
 
 # copy over the start.sh script
 COPY start.sh start.sh
