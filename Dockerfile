@@ -61,12 +61,50 @@ ARG LIBS="curl\
     rpm\
     texinfo\
     tk\
-    tzdata\
     upx\
     xorriso\
     xvfb\
     xz-utils\
-    zsync"
+    zsync\
+    bzip2\
+    g++\
+    gcc\
+    make\
+    tar\
+    unzip\
+    wget\
+    acl\
+    aria2\
+    binutils\
+    bison\
+    brotli\
+    coreutils\
+    file\
+    flex\
+    ftp\
+    haveged\
+    lz4\
+    m4\
+    mediainfo\
+    netcat\
+    net-tools\
+    p7zip-full\
+    parallel\
+    pass\
+    patchelf\
+    pigz\
+    pollinate\
+    rsync\
+    shellcheck\
+    sphinxsearch\
+    sqlite3\
+    sshpass\
+    subversion\
+    sudo\
+    swig\
+    telnet\
+    time\
+    zip"
 
 
 
