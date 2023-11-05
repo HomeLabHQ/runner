@@ -146,6 +146,6 @@ USER docker
 
 ARG JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
 ENV JAVA_HOME=$JAVA_HOME
-RUN chown -R docker /usr/lib/jvm
+RUN sudo chmod -R 777 /usr/lib/jvm
 # set the entrypoint to the start.sh script
 ENTRYPOINT ["./start.sh"]
