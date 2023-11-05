@@ -140,12 +140,12 @@ RUN chown -R docker ~docker && /home/docker/actions-runner/bin/installdependenci
 COPY start.sh start.sh
 
 RUN apt-get autoremove --purge
+RUN chmod -R 777 /usr/lib/jvm
+
 # since the config and run script for actions are not allowed to be run by root,
 # set the user to "docker" so all subsequent commands are run as the docker user
 USER docker
-
 ARG JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
 ENV JAVA_HOME=$JAVA_HOME
-RUN DEBIAN_FRONTEND=noninteractive chmod -R 777 /usr/lib/jvm
 # set the entrypoint to the start.sh script
 ENTRYPOINT ["./start.sh"]
