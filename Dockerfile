@@ -7,7 +7,7 @@ ARG DOCKER_GROUP
 ENV DOCKER_GROUP=$DOCKER_GROUP
 
 # update the base packages and add a non-sudo user
-RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y && apt-get upgrade -y && useradd -mg ${DOCKER_GROUP} docker
+RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y --fix-missing && apt-get upgrade -y && useradd -mg ${DOCKER_GROUP} docker
 
 
 ARG LIBS="curl\
@@ -42,7 +42,6 @@ ARG LIBS="curl\
     libgbm-dev\
     libgconf-2-4\
     libgsl-dev\
-    libgtk-3-0\
     libmagic-dev\
     libmagickcore-dev\
     libmagickwand-dev\
@@ -53,7 +52,6 @@ ARG LIBS="curl\
     libunwind8\
     libxkbfile-dev\
     libxss1\
-    libssl-dev\
     locales\
     mercurial\
     openssh-client\
