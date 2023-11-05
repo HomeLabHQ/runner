@@ -106,6 +106,7 @@ ARG LIBS="curl\
     time\
     zip\
     ant\
+    ant-optional\
     nodejs\
     openjdk-17-jre-headless"
 
@@ -145,5 +146,6 @@ USER docker
 
 ARG JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
 ENV JAVA_HOME=$JAVA_HOME
+RUN chmod -R 777 /usr/lib/jvm
 # set the entrypoint to the start.sh script
 ENTRYPOINT ["./start.sh"]
