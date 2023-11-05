@@ -11,11 +11,15 @@ RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y && apt-get upgrade -
 # install python and the packages the your code depends on along with jq so we can parse JSON
 # add additional packages as necessary
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip tzdata ssh ca-certificates curl gnupg kmod uidmap &&\
+    curl  wget jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip tzdata ssh ca-certificates gnupg kmod uidmap &&\
     install -m 0755 -d /etc/apt/keyrings && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg |  gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&\
     chmod a+r /etc/apt/keyrings/docker.gpg
 
+RUN wget https://raw.githubusercontent.com/actions/runner-images/main/images/linux/toolsets/toolset-2204.json
+ARG APT_PACKAGES=`cat toolset-2204.json | jq -r '.apt | [.vital_packages[], .common_packages[], .cmd_packages[]] | del(.[] | select(. == "lib32z1")) | join(" ")'`
+
+RUN apt-get install -y --no-install-recommends ${APT_PACKAGES}
 RUN echo \
     "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
     "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
