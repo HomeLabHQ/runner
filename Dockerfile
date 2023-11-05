@@ -142,6 +142,7 @@ RUN apt-get autoremove --purge
 # set the user to "docker" so all subsequent commands are run as the docker user
 USER docker
 
-
+ARG JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+ENV JAVA_HOME=$JAVA_HOME
 # set the entrypoint to the start.sh script
 ENTRYPOINT ["./start.sh"]
