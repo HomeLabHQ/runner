@@ -8,18 +8,79 @@ ENV DOCKER_GROUP=$DOCKER_GROUP
 
 # update the base packages and add a non-sudo user
 RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y && apt-get upgrade -y && useradd -mg ${DOCKER_GROUP} docker
-# install python and the packages the your code depends on along with jq so we can parse JSON
-# add additional packages as necessary
+
+
+ARG LIBS="curl\
+    jq\
+    build-essential\
+    libssl-dev\
+    libffi-dev\
+    python3\
+    python3-venv\
+    python3-dev\
+    python3-pip\
+    tzdata\
+    ssh\
+    ca-certificates\
+    gnupg\
+    kmod\
+    uidmap\
+    autoconf\
+    automake\
+    dbus\
+    dnsutils\
+    dpkg\
+    dpkg-dev\
+    fakeroot\
+    fonts-noto-color-emoji\
+    gnupg2\
+    imagemagick\
+    iproute2\
+    iputils-ping\
+    lib32z1\
+    libc++abi-dev\
+    libc++-dev\
+    libc6-dev\
+    libcurl4\
+    libgbm-dev\
+    libgconf-2-4\
+    libgsl-dev\
+    libgtk-3-0\
+    libmagic-dev\
+    libmagickcore-dev\
+    libmagickwand-dev\
+    libsecret-1-dev\
+    libsqlite3-dev\
+    libyaml-dev\
+    libtool\
+    libunwind8\
+    libxkbfile-dev\
+    libxss1\
+    libssl-dev\
+    locales\
+    mercurial\
+    openssh-client\
+    p7zip-rar\
+    pkg-config\
+    python-is-python3\
+    rpm\
+    texinfo\
+    tk\
+    tzdata\
+    upx\
+    xorriso\
+    xvfb\
+    xz-utils\
+    zsync"
+
+
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip tzdata ssh ca-certificates curl gnupg kmod uidmap &&\
     install -m 0755 -d /etc/apt/keyrings && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg |  gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&\
     chmod a+r /etc/apt/keyrings/docker.gpg
-
-RUN curl https://raw.githubusercontent.com/actions/runner-images/main/images/linux/toolsets/toolset-2204.json -o toolset-2204.json
-
-ARG APT_PACKAGES=$(cat toolset-2204.json | jq -r '.apt | [.vital_packages[], .common_packages[], .cmd_packages[]] | join(" ")')
-RUN apt-get update -y && apt-get install -y --no-install-recommends ${APT_PACKAGES}
+#*  Setup docker
 RUN echo \
     "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
     "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
@@ -27,9 +88,13 @@ RUN echo \
     usermod -aG docker docker 
 
 
-RUN apt-get update -y && apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin openjdk-17-jdk openjdk-17-jre
+RUN apt-get update -y &&\
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin &&\
+    rm -rf /var/lib/apt/lists/*
 # cd into the user directory, download and unzip the github actions runner
-RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
+WORKDIR /home/docker
+
+RUN mkdir actions-runner && cd actions-runner \
     && curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
     && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
 
