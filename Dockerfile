@@ -38,8 +38,6 @@ ARG LIBS="curl\
     iproute2\
     iputils-ping\
     lib32z1\
-    libc++abi-dev\
-    libc6-dev\
     libcurl4\
     libgbm-dev\
     libgconf-2-4\
