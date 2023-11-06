@@ -142,7 +142,7 @@ RUN curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VER
 
 # install some additional dependencies
 RUN chown -R runner ~runner && /home/runner/bin/installdependencies.sh
-RUN chown -R github ~runner
+RUN chown -R runner github
 # copy over the start.sh script
 COPY start.sh start.sh
 
