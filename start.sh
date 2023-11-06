@@ -8,7 +8,7 @@ REG_TOKEN=$(curl -sX POST -H "Authorization: token ${ACCESS_TOKEN}" https://api.
 
 cd /home/runner
 
-./config.sh --url https://github.com/${ORGANIZATION} --token ${REG_TOKEN} --name ${RUNNER_NAME} --work /home/runner/work
+./config.sh --url https://github.com/${ORGANIZATION} --token ${REG_TOKEN} --name ${RUNNER_NAME} --work /github
 
 cleanup() {
     echo "Removing runner..."
