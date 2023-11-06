@@ -8,7 +8,7 @@ Need 2 env variables:
 
 - Organization name
 - PAT for registering runner(should have organization admin rights)
-- `DOCKER_GROUP` to use dockerindocker
+- `DOCKER_GROUP` to use dockerindocker(dind)
 
 ## Notes
 

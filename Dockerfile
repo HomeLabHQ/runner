@@ -5,6 +5,12 @@ FROM ubuntu:22.04
 ARG RUNNER_VERSION="2.311.0"
 ARG DOCKER_GROUP
 ENV DOCKER_GROUP=$DOCKER_GROUP
+ARG RUNNER_USER="runner"
+ENV RUNNER_USER=$RUNNER_USER
+ARG USER="runner"
+ENV USER=$USER
+ARG LANG="C.UTF-8"
+ENV LANG=$LANG
 
 # update the base packages and add a non-sudo user
 RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y --fix-missing && apt-get upgrade -y && useradd -mg ${DOCKER_GROUP} runner
