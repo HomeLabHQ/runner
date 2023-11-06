@@ -142,7 +142,6 @@ RUN chown -R runner ~runner && /home/runner/bin/installdependencies.sh
 COPY start.sh start.sh
 
 RUN apt-get autoremove --purge
-
 # since the config and run script for actions are not allowed to be run by root,
 # set the user to "docker" so all subsequent commands are run as the docker user
 USER runner
