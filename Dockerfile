@@ -134,6 +134,7 @@ RUN apt-get update -y &&\
     apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin &&\
     rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /github/workflow && mkdir -p /github/home
+RUN chown -R runner github
 # cd into the user directory, download and unzip the github actions runner
 WORKDIR /home/runner
 
@@ -142,7 +143,6 @@ RUN curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VER
 
 # install some additional dependencies
 RUN chown -R runner ~runner && /home/runner/bin/installdependencies.sh
-RUN chown -R runner github
 # copy over the start.sh script
 COPY start.sh start.sh
 
