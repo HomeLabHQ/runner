@@ -133,7 +133,7 @@ RUN echo \
 RUN apt-get update -y &&\
     apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin &&\
     rm -rf /var/lib/apt/lists/*
-
+RUN mkdir -p /github/workflow && mkdir -p /github/home
 # cd into the user directory, download and unzip the github actions runner
 WORKDIR /home/runner
 
@@ -142,7 +142,7 @@ RUN curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VER
 
 # install some additional dependencies
 RUN chown -R runner ~runner && /home/runner/bin/installdependencies.sh
-
+RUN chown -R github ~runner
 # copy over the start.sh script
 COPY start.sh start.sh
 
@@ -151,6 +151,6 @@ RUN apt-get autoremove --purge
 # since the config and run script for actions are not allowed to be run by root,
 # set the user to "docker" so all subsequent commands are run as the docker user
 USER runner
-RUN mkdir -p /github/workflow && mkdir -p /github/home
+
 # set the entrypoint to the start.sh script
 ENTRYPOINT ["./start.sh"]
