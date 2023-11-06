@@ -11,6 +11,8 @@ ARG USER="runner"
 ENV USER=$USER
 ARG LANG="C.UTF-8"
 ENV LANG=$LANG
+ARG GITHUB_EVENT_PATH="/github/workflow/event.json"
+ENV GITHUB_EVENT_PATH=$GITHUB_EVENT_PATH
 
 # update the base packages and add a non-sudo user
 RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y --fix-missing && apt-get upgrade -y && useradd -mg ${DOCKER_GROUP} runner
@@ -131,11 +133,12 @@ RUN echo \
 RUN apt-get update -y &&\
     apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin &&\
     rm -rf /var/lib/apt/lists/*
+
 # cd into the user directory, download and unzip the github actions runner
 WORKDIR /home/runner
 
 RUN curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
-    && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
+    && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && rm ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
 
 # install some additional dependencies
 RUN chown -R runner ~runner && /home/runner/bin/installdependencies.sh
@@ -144,12 +147,10 @@ RUN chown -R runner ~runner && /home/runner/bin/installdependencies.sh
 COPY start.sh start.sh
 
 RUN apt-get autoremove --purge
-RUN chmod -R 777 /usr/lib/jvm
 
 # since the config and run script for actions are not allowed to be run by root,
 # set the user to "docker" so all subsequent commands are run as the docker user
 USER runner
-ARG JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
-ENV JAVA_HOME=$JAVA_HOME
+RUN mkdir -p /github/workflow && mkdir -p /github/home
 # set the entrypoint to the start.sh script
 ENTRYPOINT ["./start.sh"]
