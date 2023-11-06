@@ -11,8 +11,7 @@ ARG USER="runner"
 ENV USER=$USER
 ARG LANG="C.UTF-8"
 ENV LANG=$LANG
-ARG GITHUB_EVENT_PATH="/github/workflow/event.json"
-ENV GITHUB_EVENT_PATH=$GITHUB_EVENT_PATH
+
 
 # update the base packages and add a non-sudo user
 RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y --fix-missing && apt-get upgrade -y && useradd -mg ${DOCKER_GROUP} runner
@@ -151,6 +150,7 @@ RUN apt-get autoremove --purge
 # since the config and run script for actions are not allowed to be run by root,
 # set the user to "docker" so all subsequent commands are run as the docker user
 USER runner
-
+ARG GITHUB_EVENT_PATH="/github/workflow/event.json"
+ENV GITHUB_EVENT_PATH=$GITHUB_EVENT_PATH
 # set the entrypoint to the start.sh script
 ENTRYPOINT ["./start.sh"]
