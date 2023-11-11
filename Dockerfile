@@ -133,6 +133,7 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists/*
 # cd into the user directory, download and unzip the github actions runner
 WORKDIR /home/runner
+RUN chmod -r 777 /home/runner
 RUN curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
     && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && rm ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
 
