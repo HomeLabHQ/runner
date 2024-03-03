@@ -65,6 +65,7 @@ ARG LIBS="curl\
     p7zip-rar\
     pkg-config\
     python-is-python3\
+    graphviz\
     rpm\
     texinfo\
     tk\
