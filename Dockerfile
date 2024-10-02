@@ -13,6 +13,7 @@ ARG LANG="C.UTF-8"
 ENV LANG=$LANG
 
 
+RUN usermod -u 666 ubuntu && groupmod -g 666 ubuntu
 # update the base packages and add a non-sudo user
 RUN groupadd -g ${DOCKER_GROUP} docker && apt-get update -y --fix-missing && apt-get upgrade -y && useradd -mg ${DOCKER_GROUP} runner
 
