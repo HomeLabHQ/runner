@@ -1,8 +1,8 @@
 # base
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 # set the github runner version
-ARG RUNNER_VERSION="2.311.0"
+ARG RUNNER_VERSION="2.319.1"
 ARG DOCKER_GROUP
 ENV DOCKER_GROUP=$DOCKER_GROUP
 ARG RUNNER_USER="runner"
@@ -44,10 +44,8 @@ ARG LIBS="curl\
     imagemagick\
     iproute2\
     iputils-ping\
-    lib32z1\
     libcurl4\
     libgbm-dev\
-    libgconf-2-4\
     libgsl-dev\
     libmagic-dev\
     libmagickcore-dev\
@@ -94,7 +92,7 @@ ARG LIBS="curl\
     lz4\
     m4\
     mediainfo\
-    netcat\
+    netcat-traditional\
     net-tools\
     p7zip-full\
     parallel\
