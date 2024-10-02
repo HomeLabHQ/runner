@@ -1,5 +1,6 @@
 services:
   runner:
+    container_name: gh-runner
     build:
       context: ./
       args:
